@@ -4,9 +4,7 @@ class UsersController < ApplicationController
 	before_filter :admin_user, only: :destroy
 
 
-	def signed_in_user
-		redirect_to signin_path, notice: "Please sign in." unless sign_in?
-	end
+	
 
 	def index
 		@users = User.paginate(page:params[:page])
@@ -25,6 +23,7 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+		@microposts = @user.microposts.paginate(page: params[:page])
 	end
   
   def new
